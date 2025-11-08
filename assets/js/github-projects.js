@@ -25,22 +25,20 @@ function setGitHubConfig(
 /**
  * Fetch repositories from GitHub API
  */
-async function fetchGitHubRepos() {
+
+// Fetch pinned repositories from a JSON file
+async function fetchPinnedRepos() {
   try {
-    const response = await fetch(
-      `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`
+    const response = await fetch("/assets/js/pinned-repos.json");
+    if (!response.ok) throw new Error("Could not load pinned repos list");
+    const pinned = await response.json();
+    const promises = pinned.map(({ owner, repo }) =>
+      fetchExternalRepo(owner, repo)
     );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch repositories");
-    }
-
-    const repos = await response.json();
-    return repos.filter(
-      (repo) => !repo.fork && !EXCLUDE_REPOS.includes(repo.name)
-    );
+    const results = await Promise.all(promises);
+    return results.filter((repo) => repo !== null);
   } catch (error) {
-    console.error("Error fetching GitHub repos:", error);
+    console.error("Error loading pinned repos:", error);
     return [];
   }
 }
@@ -114,19 +112,17 @@ function createProjectCard(repo) {
     ? `<span class="tag" style="background-color: var(--accent-color); color: white;"><i class="fas fa-users"></i> Contributor</span>`
     : "";
 
-  // Get social preview image if available
-  const socialImage =
-    repo.owner && repo.owner.avatar_url
-      ? repo.owner.avatar_url
-      : `https://opengraph.githubassets.com/1/${repo.full_name}`;
+  let socialImage = `https://opengraph.githubassets.com/1/${repo.full_name}`;
 
   return `
     <div class="project-card" data-language="${repo.language || "other"}">
-      ${
-        socialImage
-          ? `<div class="project-image" style="background-image: url('${socialImage}'); background-size: cover; background-position: center; height: 200px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));"></div>`
-          : ""
-      }
+      <div class="project-image" style="background-image: url('${socialImage}'); background-size: cover; background-position: center; height: 200px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));">
+        <img src="${socialImage}" alt="${
+    repo.name
+  } social preview" style="display:none;" onerror="this.parentNode.style.backgroundImage='url(${
+    repo.owner && repo.owner.avatar_url ? `'${repo.owner.avatar_url}'` : ""
+  })'">
+      </div>
       <h3>${repo.name}</h3>
       <p>${repo.description || "No description available"}</p>
       <div class="project-meta">
@@ -179,6 +175,7 @@ function formatDate(dateString) {
 /**
  * Load and display GitHub projects
  */
+
 async function loadGitHubProjects(containerId, featuredOnly = true) {
   const container = document.getElementById(containerId);
 
@@ -192,17 +189,17 @@ async function loadGitHubProjects(containerId, featuredOnly = true) {
     '<div class="loading">Loading projects from GitHub...</div>';
 
   try {
-    // Fetch both own repos and external repos
-    const [ownRepos, externalRepos] = await Promise.all([
-      fetchGitHubRepos(),
-      fetchExternalRepos(),
-    ]);
-
-    let repos = [...ownRepos, ...externalRepos];
-
-    // Filter for featured repos if needed
-    if (featuredOnly && FEATURED_REPOS && FEATURED_REPOS.length > 0) {
-      repos = repos.filter((repo) => FEATURED_REPOS.includes(repo.name));
+    let repos = [];
+    if (containerId === "projects-grid") {
+      // Home section: show only those in pinned-repos.json
+      repos = await fetchPinnedRepos();
+    } else {
+      // Projects section: show all user repos and external repos
+      const [ownRepos, externalRepos] = await Promise.all([
+        fetchGitHubRepos(),
+        fetchExternalRepos(),
+      ]);
+      repos = [...ownRepos, ...externalRepos];
     }
 
     // Sort by stars and date
@@ -212,11 +209,6 @@ async function loadGitHubProjects(containerId, featuredOnly = true) {
       }
       return new Date(b.updated_at) - new Date(a.updated_at);
     });
-
-    // Limit to top 6 for featured section
-    if (featuredOnly) {
-      repos = repos.slice(0, 6);
-    }
 
     if (repos.length === 0) {
       container.innerHTML = '<div class="loading">No projects found.</div>';
