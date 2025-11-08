@@ -44,7 +44,6 @@ title: Get in Touch
 <div class="contact-footer">
   <h3>Currently Available</h3>
   <p>
-    <!-- EDIT THIS: Update your availability status -->
     I'm currently <strong>open to new opportunities</strong> and interesting projects. 
     If you have something in mind, don't hesitate to reach out!
   </p>

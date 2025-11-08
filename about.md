@@ -23,7 +23,7 @@ title: About Me
     </p>
 
     <p>
-      Currently, I'm working on my master's thesis focusing on cutting-edge research in high-performance computing and AI applications.
+      Currently, I'm working on my master's thesis focusing on [REDACTED]. (Can't disclose more details yet!)
     </p>
 
     <h3>Other Achievements & Goals</h3>
@@ -43,7 +43,7 @@ title: About Me
 
     <div class="education-item">
       <h4>Bachelor's Degree in Computer Engineering</h4>
-      <p>Politecnico di Milano | 2020 - 2023</p>
+      <p>Politecnico di Milano | 2021 - 2024</p>
       <p>Foundation in computer science, software engineering, and system design</p>
     </div>
 

@@ -91,10 +91,8 @@ title: Skills & Technologies
 <div class="learning-section">
   <p>I'm always expanding my skillset. Currently, I'm focused on:</p>
   <ul>
-    <li>Advanced parallel computing architectures</li>
     <li>Distributed machine learning systems</li>
-    <li>3D CNNs for medical imaging (Alzheimer's detection)</li>
-    <li>Graph coloring algorithms in HPC</li>
+    <li>Graph algorithms in HPC</li>
     <li>Stream data analytics and concept drift detection</li>
   </ul>
 </div>
