@@ -293,6 +293,11 @@ if (document.readyState === "loading") {
       loadGitHubProjects("projects-grid", true);
     }
 
+    // Auto-load on projects page
+    if (document.getElementById("all-projects")) {
+      loadGitHubProjects("all-projects", false);
+    }
+
     // Initialize filters
     initProjectFilters();
   });
@@ -301,5 +306,10 @@ if (document.readyState === "loading") {
   if (document.getElementById("projects-grid")) {
     loadGitHubProjects("projects-grid", true);
   }
+
+  if (document.getElementById("all-projects")) {
+    loadGitHubProjects("all-projects", false);
+  }
+
   initProjectFilters();
 }
