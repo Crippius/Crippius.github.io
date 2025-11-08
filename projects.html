@@ -23,15 +23,7 @@ title: Projects
 </div>
 
 <script>
-  // Configure GitHub settings from site-config.js
-  setGitHubConfig(
-    SITE_CONFIG.github_username,
-    SITE_CONFIG.featured_repos,
-    SITE_CONFIG.exclude_repos,
-    SITE_CONFIG.external_repos
-  );
-  
-  // Load all projects on this page
+  // Load all projects on this page after DOM is ready
   document.addEventListener('DOMContentLoaded', function() {
     loadGitHubProjects('all-projects', false); // false = load all, not just featured
   });

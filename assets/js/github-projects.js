@@ -83,38 +83,34 @@ async function fetchExternalRepos() {
  * Create HTML for a project card
  */
 function createProjectCard(repo) {
-  const stars =
-    repo.stargazers_count > 0
-      ? `<span class="project-meta"><i class="fas fa-star"></i> ${repo.stargazers_count}</span>`
-      : "";
-
-  const forks =
-    repo.forks_count > 0
-      ? `<span class="project-meta"><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>`
-      : "";
-
-  const language = repo.language
-    ? `<span class="tag">${repo.language}</span>`
-    : "";
-
-  // Use topics from the repo
-  const topics =
-    repo.topics && repo.topics.length > 0
-      ? repo.topics
-          .slice(0, 5)
-          .map((topic) => `<span class="tag">${topic}</span>`)
-          .join("")
-      : "";
-
-  // Check if this is an external repo (not owned by the main user)
-  const isExternal = repo.owner && repo.owner.login !== GITHUB_USERNAME;
-  const contributorBadge = isExternal
-    ? `<span class="tag" style="background-color: var(--accent-color); color: white;"><i class="fas fa-users"></i> Contributor</span>`
-    : "";
-
-  let socialImage = `https://opengraph.githubassets.com/1/${repo.full_name}`;
-
   return `
+    <div class="project-card" data-language="${repo.language || "other"}"
+      onclick="window.open('${repo.html_url}', '_blank')" style="cursor:pointer;">
+      <div class="project-image" style="background-image: url('${socialImage}'); background-size: cover; background-position: center; height: 200px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));">
+        <img src="${socialImage}" alt="${repo.name} social preview" style="display:none;" onerror="this.parentNode.style.backgroundImage='url(${repo.owner && repo.owner.avatar_url ? `'${repo.owner.avatar_url}'` : ''})'">
+      </div>
+      <h3>${repo.name}</h3>
+      <p>${repo.description || "No description available"}</p>
+      <div class="project-meta">
+        ${stars}
+        ${forks}
+      </div>
+      <div class="project-tags">
+        ${contributorBadge}
+        ${language}
+        ${topics}
+      </div>
+      <div class="project-links">
+        ${
+          repo.homepage
+            ? `<a href="${repo.homepage}" target="_blank" class="project-link" title="Live Demo" onclick="event.stopPropagation();">
+              <i class="fas fa-external-link-alt"></i>
+            </a>`
+            : ""
+        }
+      </div>
+    </div>
+  `;
     <div class="project-card" data-language="${repo.language || "other"}">
       <div class="project-image" style="background-image: url('${socialImage}'); background-size: cover; background-position: center; height: 200px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));">
         <img src="${socialImage}" alt="${
