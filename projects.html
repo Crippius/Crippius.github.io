@@ -1,0 +1,31 @@
+---
+layout: page
+title: Projects
+---
+
+<div class="projects-intro">
+  <p class="lead">
+    Here are my featured projects, automatically pulled from my GitHub repositories. 
+    Each project showcases different skills and technologies I've worked with.
+  </p>
+</div>
+
+<div class="projects-filter">
+  <button class="filter-btn active" data-filter="all">All Projects</button>
+  <button class="filter-btn" data-filter="featured">Featured</button>
+  <button class="filter-btn" data-filter="web">Web</button>
+  <button class="filter-btn" data-filter="mobile">Mobile</button>
+  <button class="filter-btn" data-filter="other">Other</button>
+</div>
+
+<div id="all-projects" class="projects-grid">
+  <div class="loading">Loading projects from GitHub...</div>
+</div>
+
+<script src="/assets/js/github-projects.js"></script>
+<script>
+  // Load all projects on this page
+  document.addEventListener('DOMContentLoaded', function() {
+    loadGitHubProjects('all-projects', false); // false = load all, not just featured
+  });
+</script>

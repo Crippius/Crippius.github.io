@@ -1,0 +1,75 @@
+# ====================================================================
+# Main Configuration
+# ====================================================================
+
+# Site Settings
+title: "Tommaso Crippa"
+description: "High Performance Computing Engineering Student | Project Portfolio"
+url: "https://crippius.github.io"
+baseurl: ""
+
+# Personal Information
+author:
+  name: "Tommaso Crippa"
+  email: "crippa.tommaso@gmail.com"
+  tagline: "High Performance Computing Engineering Student @ POLIMI & uni.lu"
+  bio: "Double Degree Student in High Performance Computing Engineering passionate about AI, Data Science, and supercomputing. Interested in understanding how the biggest supercomputers on Earth work and solving complex real-world problems with big data."
+  location: "Milan, Italy"
+  avatar: "/assets/images/photo.jpg"
+
+  # Social Links
+  github: "Crippius"
+  linkedin: "tommaso-crippa"
+
+  # CV/Resume
+  cv_url: "/assets/cv/CV_Tommaso_Crippa.pdf"
+
+github:
+  username: "Crippius"
+  repos_to_feature:
+    - "whatsapp-wrapped"
+    - "al_project"
+  exclude_repos:
+    - "Crippius"
+    - "Crippius.github.io"
+
+# Theme Settings
+theme_color: "#2c3e50" # Main accent color
+dark_mode_default: false # true or false
+
+# SEO Settings
+google_analytics: ""
+seo:
+  og_image: "/assets/images/photo.jpg"
+
+# Build Settings
+markdown: kramdown
+permalink: pretty
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Exclude from build
+exclude:
+  - README.md
+  - DESIGN_DOCUMENT.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Collections
+collections:
+  experiences:
+    output: true
+    permalink: /experiences/:name/
+  certifications:
+    output: false
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
