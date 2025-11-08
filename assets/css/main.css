@@ -413,9 +413,32 @@ main {
 .project-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: var(--accent-color);
-  font-weight: 500;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--text-color);
+  background-color: var(--background-alt);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 1.2rem;
+  transition: var(--transition);
+}
+
+.project-link:hover {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.project-image {
+  margin: calc(-1 * var(--spacing-md));
+  margin-bottom: var(--spacing-md);
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background-color: var(--background-alt);
 }
 
 .loading {

@@ -87,57 +87,51 @@ async function fetchExternalRepos() {
 function createProjectCard(repo) {
   const stars =
     repo.stargazers_count > 0
-      ? `
-    <span class="project-meta">
-      <i class="fas fa-star"></i> ${repo.stargazers_count}
-    </span>
-  `
+      ? `<span class="project-meta"><i class="fas fa-star"></i> ${repo.stargazers_count}</span>`
       : "";
 
   const forks =
     repo.forks_count > 0
-      ? `
-    <span class="project-meta">
-      <i class="fas fa-code-branch"></i> ${repo.forks_count}
-    </span>
-  `
+      ? `<span class="project-meta"><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>`
       : "";
 
   const language = repo.language
-    ? `
-    <span class="tag">${repo.language}</span>
-  `
+    ? `<span class="tag">${repo.language}</span>`
     : "";
 
-  const topics = repo.topics
-    ? repo.topics
-        .slice(0, 3)
-        .map((topic) => `<span class="tag">${topic}</span>`)
-        .join("")
-    : "";
+  // Use topics from the repo
+  const topics =
+    repo.topics && repo.topics.length > 0
+      ? repo.topics
+          .slice(0, 5)
+          .map((topic) => `<span class="tag">${topic}</span>`)
+          .join("")
+      : "";
 
   // Check if this is an external repo (not owned by the main user)
   const isExternal = repo.owner && repo.owner.login !== GITHUB_USERNAME;
   const contributorBadge = isExternal
-    ? `<span class="tag" style="background-color: var(--accent-color); color: white;">
-         <i class="fas fa-users"></i> Contributor
-       </span>`
+    ? `<span class="tag" style="background-color: var(--accent-color); color: white;"><i class="fas fa-users"></i> Contributor</span>`
     : "";
+
+  // Get social preview image if available
+  const socialImage =
+    repo.owner && repo.owner.avatar_url
+      ? repo.owner.avatar_url
+      : `https://opengraph.githubassets.com/1/${repo.full_name}`;
 
   return `
     <div class="project-card" data-language="${repo.language || "other"}">
+      ${
+        socialImage
+          ? `<div class="project-image" style="background-image: url('${socialImage}'); background-size: cover; background-position: center; height: 200px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));"></div>`
+          : ""
+      }
       <h3>${repo.name}</h3>
       <p>${repo.description || "No description available"}</p>
       <div class="project-meta">
         ${stars}
         ${forks}
-        ${
-          repo.updated_at
-            ? `<span><i class="fas fa-clock"></i> Updated ${formatDate(
-                repo.updated_at
-              )}</span>`
-            : ""
-        }
       </div>
       <div class="project-tags">
         ${contributorBadge}
@@ -145,16 +139,16 @@ function createProjectCard(repo) {
         ${topics}
       </div>
       <div class="project-links">
-        <a href="${repo.html_url}" target="_blank" class="project-link">
-          <i class="fab fa-github"></i> View on GitHub
+        <a href="${
+          repo.html_url
+        }" target="_blank" class="project-link" title="View on GitHub">
+          <i class="fab fa-github"></i>
         </a>
         ${
           repo.homepage
-            ? `
-          <a href="${repo.homepage}" target="_blank" class="project-link">
-            <i class="fas fa-external-link-alt"></i> Live Demo
-          </a>
-        `
+            ? `<a href="${repo.homepage}" target="_blank" class="project-link" title="Live Demo">
+              <i class="fas fa-external-link-alt"></i>
+            </a>`
             : ""
         }
       </div>

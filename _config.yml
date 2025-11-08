@@ -53,7 +53,7 @@ dark_mode_default: false # true or false
 # SEO Settings
 google_analytics: ""
 seo:
-  og_image: "/assets/images/duh.png" # TO CHANGE
+  og_image: "/assets/images/favicon.png"
 
 # Build Settings
 markdown: kramdown
