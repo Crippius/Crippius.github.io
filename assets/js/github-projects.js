@@ -80,23 +80,79 @@ async function fetchExternalRepos() {
 }
 
 /**
+ * Fetch user's own repositories from GitHub API
+ */
+async function fetchGitHubRepos() {
+  try {
+    const response = await fetch(
+      `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch repositories");
+    }
+
+    const repos = await response.json();
+
+    // Filter out excluded repos
+    return repos.filter((repo) => !EXCLUDE_REPOS.includes(repo.name));
+  } catch (error) {
+    console.error("Error fetching GitHub repos:", error);
+    return [];
+  }
+}
+
+/**
  * Create HTML for a project card
  */
 function createProjectCard(repo) {
+  // Social preview image (OpenGraph image)
+  const socialImage = `https://opengraph.githubassets.com/1/${repo.full_name}`;
+
+  // Star and fork counts
+  const stars =
+    repo.stargazers_count > 0
+      ? `<span class="meta-item"><i class="fas fa-star"></i> ${repo.stargazers_count}</span>`
+      : "";
+  const forks =
+    repo.forks_count > 0
+      ? `<span class="meta-item"><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>`
+      : "";
+
+  // Language tag
+  const language = repo.language
+    ? `<span class="tag">${repo.language}</span>`
+    : "";
+
+  // Topic tags
+  const topics = repo.topics
+    ? repo.topics
+        .slice(0, 3)
+        .map((topic) => `<span class="tag">${topic}</span>`)
+        .join("")
+    : "";
+
   return `
     <div class="project-card" data-language="${repo.language || "other"}"
-      onclick="window.open('${repo.html_url}', '_blank')" style="cursor:pointer;">
+      onclick="window.open('${
+        repo.html_url
+      }', '_blank')" style="cursor:pointer;">
       <div class="project-image" style="background-image: url('${socialImage}'); background-size: cover; background-position: center; height: 200px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));">
-        <img src="${socialImage}" alt="${repo.name} social preview" style="display:none;" onerror="this.parentNode.style.backgroundImage='url(${repo.owner && repo.owner.avatar_url ? `'${repo.owner.avatar_url}'` : ''})'">
+        <img src="${socialImage}" alt="${
+    repo.name
+  } social preview" style="display:none;" onerror="this.parentNode.style.backgroundImage='url(${
+    repo.owner && repo.owner.avatar_url ? repo.owner.avatar_url : ""
+  })'">
       </div>
-      <h3>${repo.name}</h3>
+      <h3 style="word-break: break-word; overflow-wrap: anywhere;">${
+        repo.name
+      }</h3>
       <p>${repo.description || "No description available"}</p>
       <div class="project-meta">
         ${stars}
         ${forks}
       </div>
       <div class="project-tags">
-        ${contributorBadge}
         ${language}
         ${topics}
       </div>
@@ -104,41 +160,6 @@ function createProjectCard(repo) {
         ${
           repo.homepage
             ? `<a href="${repo.homepage}" target="_blank" class="project-link" title="Live Demo" onclick="event.stopPropagation();">
-              <i class="fas fa-external-link-alt"></i>
-            </a>`
-            : ""
-        }
-      </div>
-    </div>
-  `;
-    <div class="project-card" data-language="${repo.language || "other"}">
-      <div class="project-image" style="background-image: url('${socialImage}'); background-size: cover; background-position: center; height: 200px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));">
-        <img src="${socialImage}" alt="${
-    repo.name
-  } social preview" style="display:none;" onerror="this.parentNode.style.backgroundImage='url(${
-    repo.owner && repo.owner.avatar_url ? `'${repo.owner.avatar_url}'` : ""
-  })'">
-      </div>
-      <h3>${repo.name}</h3>
-      <p>${repo.description || "No description available"}</p>
-      <div class="project-meta">
-        ${stars}
-        ${forks}
-      </div>
-      <div class="project-tags">
-        ${contributorBadge}
-        ${language}
-        ${topics}
-      </div>
-      <div class="project-links">
-        <a href="${
-          repo.html_url
-        }" target="_blank" class="project-link" title="View on GitHub">
-          <i class="fab fa-github"></i>
-        </a>
-        ${
-          repo.homepage
-            ? `<a href="${repo.homepage}" target="_blank" class="project-link" title="Live Demo">
               <i class="fas fa-external-link-alt"></i>
             </a>`
             : ""
