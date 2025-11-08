@@ -22,8 +22,15 @@ title: Projects
   <div class="loading">Loading projects from GitHub...</div>
 </div>
 
-<script src="/assets/js/github-projects.js"></script>
 <script>
+  // Configure GitHub settings
+  setGitHubConfig(
+    '{{ site.github.username }}',
+    {{ site.github.repos_to_feature | jsonify }},
+    {{ site.github.exclude_repos | jsonify }},
+    {{ site.github.external_repos | jsonify }}
+  );
+  
   // Load all projects on this page
   document.addEventListener('DOMContentLoaded', function() {
     loadGitHubProjects('all-projects', false); // false = load all, not just featured

@@ -12,8 +12,8 @@ baseurl: ""
 author:
   name: "Tommaso Crippa"
   email: "crippa.tommaso@gmail.com"
-  tagline: "High Performance Computing Engineering Student @ POLIMI & uni.lu"
-  bio: "Double Degree Student in High Performance Computing Engineering passionate about AI, Data Science, and supercomputing. Interested in understanding how the biggest supercomputers on Earth work and solving complex real-world problems with big data."
+  tagline: "High Performance Computing Engineering Student"
+  bio: "Passionate about building innovative solutions and learning new technologies."
   location: "Milan, Italy"
   avatar: "/assets/images/photo.jpg"
 
@@ -29,9 +29,22 @@ github:
   repos_to_feature:
     - "whatsapp-wrapped"
     - "al_project"
+    - "Early_Alzheimer_Detection_DL"
+    - "eumaster4hpc_challenge_2025"
+    - "2024-2025_Benchmarking-Detectors-in-SML"
+    - "CapyMOA"
   exclude_repos:
     - "Crippius"
     - "Crippius.github.io"
+  external_repos:
+    - owner: "justvicthor"
+      repo: "Early_Alzheimer_Detection_DL"
+    - owner: "Elizabethvk"
+      repo: "eumaster4hpc_challenge_2025"
+    - owner: "Streaming-Data-Analytics"
+      repo: "2024-2025_Benchmarking-Detectors-in-SML"
+    - owner: "adaptive-machine-learning"
+      repo: "CapyMOA"
 
 # Theme Settings
 theme_color: "#2c3e50" # Main accent color
@@ -40,7 +53,7 @@ dark_mode_default: false # true or false
 # SEO Settings
 google_analytics: ""
 seo:
-  og_image: "/assets/images/photo.jpg"
+  og_image: "/assets/images/duh.png" # TO CHANGE
 
 # Build Settings
 markdown: kramdown

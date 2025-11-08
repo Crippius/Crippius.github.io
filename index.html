@@ -54,4 +54,12 @@ title: Home
   </div>
 </section>
 
-<script src="/assets/js/github-projects.js"></script>
+<script>
+  // Configure GitHub settings
+  setGitHubConfig(
+    '{{ site.github.username }}',
+    {{ site.github.repos_to_feature | jsonify }},
+    {{ site.github.exclude_repos | jsonify }},
+    {{ site.github.external_repos | jsonify }}
+  );
+</script>
