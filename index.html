@@ -55,11 +55,11 @@ title: Home
 </section>
 
 <script>
-  // Configure GitHub settings
+  // Configure GitHub settings from site-config.js
   setGitHubConfig(
-    '{{ site.github.username }}',
-    {{ site.github.repos_to_feature | jsonify }},
-    {{ site.github.exclude_repos | jsonify }},
-    {{ site.github.external_repos | jsonify }}
+    SITE_CONFIG.github_username,
+    SITE_CONFIG.featured_repos,
+    SITE_CONFIG.exclude_repos,
+    SITE_CONFIG.external_repos
   );
 </script>
