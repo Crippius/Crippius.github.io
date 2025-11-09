@@ -10,12 +10,14 @@ let SKILLS_CONFIG = {};
  */
 async function loadSkillsConfig() {
   try {
+    console.log("Loading skills config...");
     const response = await fetch("/assets/js/skills-config.json");
     if (!response.ok) {
       console.error("Skills config file not found");
       return;
     }
     SKILLS_CONFIG = await response.json();
+    console.log("Skills config loaded:", SKILLS_CONFIG);
     renderSkills();
   } catch (error) {
     console.error("Error loading skills config:", error);
@@ -51,11 +53,13 @@ const TOOL_ICONS = {
  * Render skills sections dynamically
  */
 function renderSkills() {
+  console.log("Rendering skills sections...");
   renderProgrammingLanguages();
   renderCategorySkills("data_science", "Data Science");
   renderCategorySkills("ai", "AI / Machine Learning");
   renderCategorySkills("hpc", "HPC");
   renderOtherTools();
+  console.log("Skills rendering complete");
 }
 
 /**
@@ -63,7 +67,10 @@ function renderSkills() {
  */
 function renderProgrammingLanguages() {
   const container = document.querySelector("#programming-languages-section");
-  if (!container || !SKILLS_CONFIG.programming_languages) return;
+  if (!container || !SKILLS_CONFIG.programming_languages) {
+    console.warn("Programming languages section not found or config missing");
+    return;
+  }
 
   let html = "";
   SKILLS_CONFIG.programming_languages.forEach((lang) => {
@@ -79,7 +86,14 @@ function renderProgrammingLanguages() {
  */
 function renderCategorySkills(categoryKey, sectionName) {
   const container = document.querySelector(`#${categoryKey}-section`);
-  if (!container || !SKILLS_CONFIG.categories[categoryKey]) return;
+  if (
+    !container ||
+    !SKILLS_CONFIG.categories ||
+    !SKILLS_CONFIG.categories[categoryKey]
+  ) {
+    console.warn(`Section ${categoryKey} not found or config missing`);
+    return;
+  }
 
   const skills = SKILLS_CONFIG.categories[categoryKey].skills;
   let html = "";
@@ -96,7 +110,14 @@ function renderCategorySkills(categoryKey, sectionName) {
  */
 function renderOtherTools() {
   const container = document.querySelector("#other-tools-section");
-  if (!container || !SKILLS_CONFIG.categories.other) return;
+  if (
+    !container ||
+    !SKILLS_CONFIG.categories ||
+    !SKILLS_CONFIG.categories.other
+  ) {
+    console.warn("Other tools section not found or config missing");
+    return;
+  }
 
   const otherSkills = SKILLS_CONFIG.categories.other.skills;
   // Filter out programming languages (they're already in the programming languages section)
@@ -118,4 +139,7 @@ function renderOtherTools() {
 }
 
 // Load skills when page loads
-document.addEventListener("DOMContentLoaded", loadSkillsConfig);
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM loaded, initializing skills loader...");
+  loadSkillsConfig();
+});

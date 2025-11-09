@@ -96,21 +96,127 @@ async function fetchReposFromConfig() {
 }
 
 /**
- * Fetch a single repository from GitHub
+ * Cache configuration
+ */
+const CACHE_KEY_PREFIX = "gh_repo_";
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+/**
+ * Get cached repository data
+ */
+function getCachedRepo(owner, repoName) {
+  try {
+    const cacheKey = `${CACHE_KEY_PREFIX}${owner}/${repoName}`;
+    const cached = localStorage.getItem(cacheKey);
+
+    if (!cached) return null;
+
+    const { data, timestamp } = JSON.parse(cached);
+    const now = Date.now();
+
+    // Check if cache is still valid
+    if (now - timestamp < CACHE_DURATION) {
+      console.log(`Using cached data for ${owner}/${repoName}`);
+      return data;
+    }
+
+    // Cache expired, remove it
+    localStorage.removeItem(cacheKey);
+    return null;
+  } catch (error) {
+    console.warn("Error reading cache:", error);
+    return null;
+  }
+}
+
+/**
+ * Save repository data to cache
+ */
+function setCachedRepo(owner, repoName, data) {
+  try {
+    const cacheKey = `${CACHE_KEY_PREFIX}${owner}/${repoName}`;
+    const cacheData = {
+      data: data,
+      timestamp: Date.now(),
+    };
+    localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+  } catch (error) {
+    console.warn("Error saving to cache:", error);
+  }
+}
+
+/**
+ * Create fallback repo object from overrides
+ */
+function createFallbackRepo(owner, repoName) {
+  const repoKey = `${owner}/${repoName}`;
+  const overrides = PROJECT_OVERRIDES[repoKey];
+
+  if (!overrides) {
+    console.warn(`No override data found for ${repoKey}`);
+    return null;
+  }
+
+  // Create a minimal repo object with override data
+  return {
+    name: repoName,
+    full_name: repoKey,
+    owner: { login: owner },
+    html_url: overrides.github_url || `https://github.com/${repoKey}`,
+    description: overrides.description || "No description available",
+    stargazers_count: 0,
+    forks_count: 0,
+    language: null,
+    homepage: null,
+    updated_at: new Date().toISOString(),
+    _isFallback: true, // Flag to indicate this is fallback data
+  };
+}
+
+/**
+ * Fetch a single repository from GitHub with caching
  */
 async function fetchExternalRepo(owner, repoName) {
+  // Try cache first
+  const cached = getCachedRepo(owner, repoName);
+  if (cached) {
+    return cached;
+  }
+
   try {
     const response = await fetch(
       `https://api.github.com/repos/${owner}/${repoName}`
     );
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ${owner}/${repoName}`);
+      // Check if it's a rate limit error
+      if (response.status === 403 || response.status === 429) {
+        console.warn(
+          `GitHub API rate limit hit for ${owner}/${repoName}, using fallback data`
+        );
+        return createFallbackRepo(owner, repoName);
+      }
+      throw new Error(
+        `Failed to fetch ${owner}/${repoName} (${response.status})`
+      );
     }
 
-    return await response.json();
+    const data = await response.json();
+
+    // Save to cache
+    setCachedRepo(owner, repoName, data);
+
+    return data;
   } catch (error) {
     console.error(`Error fetching external repo ${owner}/${repoName}:`, error);
+
+    // Try to use fallback data from overrides
+    const fallback = createFallbackRepo(owner, repoName);
+    if (fallback) {
+      console.log(`Using fallback data for ${owner}/${repoName}`);
+      return fallback;
+    }
+
     return null;
   }
 }
@@ -173,17 +279,30 @@ function createProjectCard(repo) {
     overrides.description || repo.description || "No description available";
   const customImage = overrides.image;
 
-  // Social preview image (OpenGraph image) or custom image
-  const socialImage =
-    customImage || `https://opengraph.githubassets.com/1/${repo.full_name}`;
+  // Determine the GitHub URL
+  const githubUrl =
+    overrides.github_url || repo.html_url || `https://github.com/${repoKey}`;
 
-  // Star and fork counts
+  // Social preview image (OpenGraph image), custom image, or default placeholder
+  let socialImage;
+  if (customImage) {
+    socialImage = customImage;
+  } else if (repo._isFallback) {
+    // Use a default placeholder for fallback repos
+    socialImage =
+      "https://via.placeholder.com/1200x630/2c3e50/ecf0f1?text=" +
+      encodeURIComponent(title);
+  } else {
+    socialImage = `https://opengraph.githubassets.com/1/${repo.full_name}`;
+  }
+
+  // Star and fork counts (hide if using fallback data or zero)
   const stars =
-    repo.stargazers_count > 0
+    !repo._isFallback && repo.stargazers_count > 0
       ? `<span class="meta-item"><i class="fas fa-star"></i> ${repo.stargazers_count}</span>`
       : "";
   const forks =
-    repo.forks_count > 0
+    !repo._isFallback && repo.forks_count > 0
       ? `<span class="meta-item"><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>`
       : "";
 
@@ -207,12 +326,13 @@ function createProjectCard(repo) {
     <div class="project-card" 
       data-language="${repo.language || "other"}" 
       data-categories="${categoriesAttr}"
-      onclick="window.open('${
-        repo.html_url
-      }', '_blank')" style="cursor:pointer;">
+      onclick="window.open('${githubUrl}', '_blank')" style="cursor:pointer;">
       <div class="project-image" style="background-image: url('${socialImage}'); background-size: cover; background-position: center; height: 200px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));">
         <img src="${socialImage}" alt="${title} social preview" style="display:none;" onerror="this.parentNode.style.backgroundImage='url(${
-    repo.owner && repo.owner.avatar_url ? repo.owner.avatar_url : ""
+    repo.owner && repo.owner.avatar_url
+      ? repo.owner.avatar_url
+      : "https://via.placeholder.com/1200x630/2c3e50/ecf0f1?text=" +
+        encodeURIComponent(title)
   })'">
       </div>
       <h3 style="word-break: break-word; overflow-wrap: anywhere;">${title}</h3>

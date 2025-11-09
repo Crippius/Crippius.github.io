@@ -18,7 +18,7 @@
     "other": {
       "name": "Other",
       "color": "#95a5a6",
-      "skills": ["C", "C++", "Python", "JavaScript", "Java", "MATLAB", "SQL", "Bash", "HTML", "CSS", "Git", "Linux", "Docker", "MySQL", "SQLite", "VS Code", "LaTeX", "React", "Ansible", "Vagrant"]
+      "skills": ["C", "C++", "Python", "JavaScript", "Java", "MATLAB", "SQL", "Bash", "HTML", "CSS", "Git", "Linux", "Docker", "MySQL", "SQLite", "VS Code", "LaTeX", "React", "Ansible", "Vagrant", "tkinter", "Maven", "JUnit"]
     }
   },
   "programming_languages": ["Python", "C", "C++", "JavaScript", "Java", "MATLAB", "SQL", "Bash"]
