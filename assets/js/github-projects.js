@@ -207,7 +207,7 @@ async function fetchExternalRepo(owner, repoName) {
  */
 function getTagColor(tag) {
   if (!window.SKILLS_CONFIG || !window.SKILLS_CONFIG.categories) {
-    return "#95a5a6"; // default gray
+    return "category-other"; // default class
   }
 
   // Search for the tag in all categories
@@ -215,11 +215,11 @@ function getTagColor(tag) {
     window.SKILLS_CONFIG.categories
   )) {
     if (categoryData.skills && categoryData.skills.includes(tag)) {
-      return categoryData.color;
+      return `category-${categoryKey}`;
     }
   }
 
-  return "#95a5a6"; // default gray for unknown skills
+  return "category-other"; // default class for unknown skills
 }
 
 /**
@@ -291,10 +291,10 @@ function createProjectCard(repo) {
   let topicTags = "";
   if (overrides.tags && overrides.tags.length > 0) {
     topicTags = overrides.tags
-      .slice(0, 3)
+      .slice(0, 5)
       .map((tag) => {
-        const color = getTagColor(tag);
-        return `<span class="tag" style="background-color: ${color}; color: white; border-color: ${color};">${tag}</span>`;
+        const colorClass = getTagColor(tag);
+        return `<span class="tag ${colorClass}">${tag}</span>`;
       })
       .join("");
   }

@@ -100,7 +100,7 @@ function renderCategorySkills(categoryKey, sectionName) {
   let html = "";
 
   skills.forEach((skill) => {
-    html += `<span class="tech-tag">${skill}</span>\n  `;
+    html += `<span class="tech-tag category-${categoryKey}">${skill}</span>\n  `;
   });
 
   container.innerHTML = html;

@@ -17,6 +17,12 @@
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
   
+  /* Category Colors - Centralized for Projects & Skills */
+  --color-hpc: #e74c3c;
+  --color-ai: #9b59b6;
+  --color-data-science: #3498db;
+  --color-other: #95a5a6;
+  
   /* Spacing */
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -404,6 +410,31 @@ main {
   font-size: 0.85rem;
 }
 
+/* Category-specific tag colors (for projects) */
+.tag.category-hpc {
+  background-color: var(--color-hpc);
+  color: white;
+  border-color: var(--color-hpc);
+}
+
+.tag.category-ai {
+  background-color: var(--color-ai);
+  color: white;
+  border-color: var(--color-ai);
+}
+
+.tag.category-data-science {
+  background-color: var(--color-data-science);
+  color: white;
+  border-color: var(--color-data-science);
+}
+
+.tag.category-other {
+  background-color: var(--color-other);
+  color: white;
+  border-color: var(--color-other);
+}
+
 .project-links {
   display: flex;
   gap: var(--spacing-sm);
@@ -733,6 +764,31 @@ main {
   color: white;
   border-color: var(--accent-color);
   transform: translateY(-2px);
+}
+
+/* Category-specific tech tag colors */
+.tech-tag.category-hpc {
+  background-color: var(--color-hpc);
+  color: white;
+  border-color: var(--color-hpc);
+}
+
+.tech-tag.category-ai {
+  background-color: var(--color-ai);
+  color: white;
+  border-color: var(--color-ai);
+}
+
+.tech-tag.category-data-science {
+  background-color: var(--color-data-science);
+  color: white;
+  border-color: var(--color-data-science);
+}
+
+.tech-tag.category-other {
+  background-color: var(--color-other);
+  color: white;
+  border-color: var(--color-other);
 }
 
 .soft-skills {
@@ -1150,6 +1206,25 @@ main {
   background-color: var(--accent-color);
   color: white;
   border-color: var(--accent-color);
+}
+
+/* Category-specific filter button colors */
+.filter-btn[data-filter="hpc"]:hover,
+.filter-btn[data-filter="hpc"].active {
+  background-color: var(--color-hpc);
+  border-color: var(--color-hpc);
+}
+
+.filter-btn[data-filter="ai"]:hover,
+.filter-btn[data-filter="ai"].active {
+  background-color: var(--color-ai);
+  border-color: var(--color-ai);
+}
+
+.filter-btn[data-filter="data_science"]:hover,
+.filter-btn[data-filter="data_science"].active {
+  background-color: var(--color-data-science);
+  border-color: var(--color-data-science);
 }
 
 /* ====================================================================
