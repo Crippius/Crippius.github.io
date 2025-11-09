@@ -3,7 +3,8 @@
    Dynamically loads skills from skills-config.json
    ==================================================================== */
 
-let SKILLS_CONFIG = {};
+// Make SKILLS_CONFIG global so it can be accessed by github-projects.js
+window.SKILLS_CONFIG = {};
 
 /**
  * Load skills configuration from JSON file
@@ -16,8 +17,8 @@ async function loadSkillsConfig() {
       console.error("Skills config file not found");
       return;
     }
-    SKILLS_CONFIG = await response.json();
-    console.log("Skills config loaded:", SKILLS_CONFIG);
+    window.SKILLS_CONFIG = await response.json();
+    console.log("Skills config loaded:", window.SKILLS_CONFIG);
     renderSkills();
   } catch (error) {
     console.error("Error loading skills config:", error);
@@ -67,13 +68,13 @@ function renderSkills() {
  */
 function renderProgrammingLanguages() {
   const container = document.querySelector("#programming-languages-section");
-  if (!container || !SKILLS_CONFIG.programming_languages) {
+  if (!container || !window.SKILLS_CONFIG.programming_languages) {
     console.warn("Programming languages section not found or config missing");
     return;
   }
 
   let html = "";
-  SKILLS_CONFIG.programming_languages.forEach((lang) => {
+  window.SKILLS_CONFIG.programming_languages.forEach((lang) => {
     const icon = LANGUAGE_ICONS[lang] || "fas fa-code";
     html += `<span class="tech-tag"><i class="${icon}"></i> ${lang}</span>\n  `;
   });
@@ -88,14 +89,14 @@ function renderCategorySkills(categoryKey, sectionName) {
   const container = document.querySelector(`#${categoryKey}-section`);
   if (
     !container ||
-    !SKILLS_CONFIG.categories ||
-    !SKILLS_CONFIG.categories[categoryKey]
+    !window.SKILLS_CONFIG.categories ||
+    !window.SKILLS_CONFIG.categories[categoryKey]
   ) {
     console.warn(`Section ${categoryKey} not found or config missing`);
     return;
   }
 
-  const skills = SKILLS_CONFIG.categories[categoryKey].skills;
+  const skills = window.SKILLS_CONFIG.categories[categoryKey].skills;
   let html = "";
 
   skills.forEach((skill) => {
@@ -112,17 +113,17 @@ function renderOtherTools() {
   const container = document.querySelector("#other-tools-section");
   if (
     !container ||
-    !SKILLS_CONFIG.categories ||
-    !SKILLS_CONFIG.categories.other
+    !window.SKILLS_CONFIG.categories ||
+    !window.SKILLS_CONFIG.categories.other
   ) {
     console.warn("Other tools section not found or config missing");
     return;
   }
 
-  const otherSkills = SKILLS_CONFIG.categories.other.skills;
+  const otherSkills = window.SKILLS_CONFIG.categories.other.skills;
   // Filter out programming languages (they're already in the programming languages section)
   const tools = otherSkills.filter(
-    (skill) => !SKILLS_CONFIG.programming_languages.includes(skill)
+    (skill) => !window.SKILLS_CONFIG.programming_languages.includes(skill)
   );
 
   let html = "";

@@ -9,7 +9,6 @@ let FEATURED_REPOS = [];
 let EXCLUDE_REPOS = [];
 let EXTERNAL_REPOS = []; // Format: [{ owner: "username", repo: "repo-name" }]
 let PROJECT_OVERRIDES = {}; // Will be loaded from project-overrides.json
-let SKILLS_CONFIG = {}; // Will be loaded from skills-config.json
 
 // Function to set configuration
 function setGitHubConfig(
@@ -22,24 +21,6 @@ function setGitHubConfig(
   FEATURED_REPOS = featuredRepos;
   EXCLUDE_REPOS = excludeRepos;
   EXTERNAL_REPOS = externalRepos;
-}
-
-/**
- * Load skills configuration from JSON file
- */
-async function loadSkillsConfig() {
-  try {
-    const response = await fetch("/assets/js/skills-config.json");
-    if (!response.ok) {
-      console.warn("Skills config file not found, using defaults");
-      return {};
-    }
-    SKILLS_CONFIG = await response.json();
-    return SKILLS_CONFIG;
-  } catch (error) {
-    console.warn("Error loading skills config:", error);
-    return {};
-  }
 }
 
 /**
@@ -225,13 +206,13 @@ async function fetchExternalRepo(owner, repoName) {
  * Get color for a skill/tag based on category
  */
 function getTagColor(tag) {
-  if (!SKILLS_CONFIG.categories) {
+  if (!window.SKILLS_CONFIG || !window.SKILLS_CONFIG.categories) {
     return "#95a5a6"; // default gray
   }
 
   // Search for the tag in all categories
   for (const [categoryKey, categoryData] of Object.entries(
-    SKILLS_CONFIG.categories
+    window.SKILLS_CONFIG.categories
   )) {
     if (categoryData.skills && categoryData.skills.includes(tag)) {
       return categoryData.color;
@@ -247,14 +228,14 @@ function getTagColor(tag) {
 function getProjectCategories(tags) {
   const categories = new Set();
 
-  if (!tags || !SKILLS_CONFIG.categories) {
+  if (!tags || !window.SKILLS_CONFIG || !window.SKILLS_CONFIG.categories) {
     return categories;
   }
 
   // Check each tag against all categories
   tags.forEach((tag) => {
     for (const [categoryKey, categoryData] of Object.entries(
-      SKILLS_CONFIG.categories
+      window.SKILLS_CONFIG.categories
     )) {
       if (categoryData.skills && categoryData.skills.includes(tag)) {
         categories.add(categoryKey);
@@ -395,7 +376,7 @@ async function loadGitHubProjects(containerId, featuredOnly = true) {
 
   try {
     // Load configurations first
-    await Promise.all([loadSkillsConfig(), loadProjectOverrides()]);
+    await loadProjectOverrides();
 
     // Fetch all repos from config
     const allRepos = await fetchReposFromConfig();
