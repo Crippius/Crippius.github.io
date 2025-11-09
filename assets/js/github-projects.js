@@ -8,6 +8,7 @@ let GITHUB_USERNAME = "Crippius";
 let FEATURED_REPOS = [];
 let EXCLUDE_REPOS = [];
 let EXTERNAL_REPOS = []; // Format: [{ owner: "username", repo: "repo-name" }]
+let PROJECT_OVERRIDES = {}; // Will be loaded from project-overrides.json
 
 // Function to set configuration
 function setGitHubConfig(
@@ -20,6 +21,24 @@ function setGitHubConfig(
   FEATURED_REPOS = featuredRepos;
   EXCLUDE_REPOS = excludeRepos;
   EXTERNAL_REPOS = externalRepos;
+}
+
+/**
+ * Load project overrides from JSON file
+ */
+async function loadProjectOverrides() {
+  try {
+    const response = await fetch("/assets/js/project-overrides.json");
+    if (!response.ok) {
+      console.warn("Project overrides file not found, using defaults");
+      return {};
+    }
+    PROJECT_OVERRIDES = await response.json();
+    return PROJECT_OVERRIDES;
+  } catch (error) {
+    console.warn("Error loading project overrides:", error);
+    return {};
+  }
 }
 
 /**
@@ -106,8 +125,19 @@ async function fetchGitHubRepos() {
  * Create HTML for a project card
  */
 function createProjectCard(repo) {
-  // Social preview image (OpenGraph image)
-  const socialImage = `https://opengraph.githubassets.com/1/${repo.full_name}`;
+  // Check for overrides
+  const repoKey = repo.full_name;
+  const overrides = PROJECT_OVERRIDES[repoKey] || {};
+
+  // Apply overrides or use defaults
+  const title = overrides.title || repo.name;
+  const description =
+    overrides.description || repo.description || "No description available";
+  const customImage = overrides.image;
+
+  // Social preview image (OpenGraph image) or custom image
+  const socialImage =
+    customImage || `https://opengraph.githubassets.com/1/${repo.full_name}`;
 
   // Star and fork counts
   const stars =
@@ -124,13 +154,19 @@ function createProjectCard(repo) {
     ? `<span class="tag">${repo.language}</span>`
     : "";
 
-  // Topic tags
-  const topics = repo.topics
-    ? repo.topics
-        .slice(0, 3)
-        .map((topic) => `<span class="tag">${topic}</span>`)
-        .join("")
-    : "";
+  // Topic tags - use custom tags if provided, otherwise use repo topics
+  let topicTags = "";
+  if (overrides.tags && overrides.tags.length > 0) {
+    topicTags = overrides.tags
+      .slice(0, 3)
+      .map((tag) => `<span class="tag">${tag}</span>`)
+      .join("");
+  } else if (repo.topics && repo.topics.length > 0) {
+    topicTags = repo.topics
+      .slice(0, 3)
+      .map((topic) => `<span class="tag">${topic}</span>`)
+      .join("");
+  }
 
   return `
     <div class="project-card" data-language="${repo.language || "other"}"
@@ -138,23 +174,19 @@ function createProjectCard(repo) {
         repo.html_url
       }', '_blank')" style="cursor:pointer;">
       <div class="project-image" style="background-image: url('${socialImage}'); background-size: cover; background-position: center; height: 200px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));">
-        <img src="${socialImage}" alt="${
-    repo.name
-  } social preview" style="display:none;" onerror="this.parentNode.style.backgroundImage='url(${
+        <img src="${socialImage}" alt="${title} social preview" style="display:none;" onerror="this.parentNode.style.backgroundImage='url(${
     repo.owner && repo.owner.avatar_url ? repo.owner.avatar_url : ""
   })'">
       </div>
-      <h3 style="word-break: break-word; overflow-wrap: anywhere;">${
-        repo.name
-      }</h3>
-      <p>${repo.description || "No description available"}</p>
+      <h3 style="word-break: break-word; overflow-wrap: anywhere;">${title}</h3>
+      <p>${description}</p>
       <div class="project-meta">
         ${stars}
         ${forks}
       </div>
       <div class="project-tags">
         ${language}
-        ${topics}
+        ${topicTags}
       </div>
       <div class="project-links">
         ${
@@ -206,6 +238,9 @@ async function loadGitHubProjects(containerId, featuredOnly = true) {
     '<div class="loading">Loading projects from GitHub...</div>';
 
   try {
+    // Load project overrides first
+    await loadProjectOverrides();
+
     let repos = [];
     if (containerId === "projects-grid") {
       // Home section: show only those in pinned-repos.json

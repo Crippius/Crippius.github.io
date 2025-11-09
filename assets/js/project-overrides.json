@@ -1,0 +1,32 @@
+{
+  "justvicthor/Early_Alzheimer_Detection_DL": {
+    "title": "Early Alzheimer Detection with Deep Learning",
+    "description": "A deep learning project for early detection of Alzheimer's disease using neural networks and medical imaging data.",
+    "tags": ["Deep Learning", "Healthcare", "PyTorch"],
+    "image": null
+  },
+  "Elizabethvk/eumaster4hpc_challenge_2025": {
+    "title": "EUMaster4HPC Challenge 2025",
+    "description": "Competitive HPC challenge focusing on parallel computing and performance optimization.",
+    "tags": ["HPC", "Parallel Computing", "Performance"],
+    "image": null
+  },
+  "Crippius/whatsapp-wrapped": {
+    "title": "WhatsApp Wrapped",
+    "description": "Personal analytics tool for WhatsApp chat data - similar to Spotify Wrapped but for your messages!",
+    "tags": ["Python", "Data Analytics", "Visualization"],
+    "image": null
+  },
+  "Crippius/al_project": {
+    "title": "Active Learning Project",
+    "description": "Implementation of active learning algorithms for efficient machine learning model training.",
+    "tags": ["Machine Learning", "Active Learning", "Python"],
+    "image": null
+  },
+  "Streaming-Data-Analytics/2024-2025_Benchmarking-Detectors-in-SML": {
+    "title": "Benchmarking Concept Drift Detectors",
+    "description": "Comprehensive benchmarking of concept drift detection algorithms in streaming machine learning.",
+    "tags": ["Stream Mining", "Concept Drift", "Benchmarking"],
+    "image": null
+  }
+}

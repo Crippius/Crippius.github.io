@@ -765,6 +765,62 @@ main {
   margin-top: var(--spacing-lg);
 }
 
+/* Learning Cards */
+.learning-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.learning-card {
+  background-color: var(--background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  transition: var(--transition);
+}
+
+.learning-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: var(--accent-color);
+}
+
+.learning-icon {
+  color: var(--accent-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+.learning-card h4 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.1rem;
+}
+
+.learning-card p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.learning-progress {
+  width: 100%;
+  height: 6px;
+  background-color: var(--background-alt);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-color), #5dade2);
+  width: var(--progress, 0%);
+  border-radius: var(--radius-sm);
+  transition: width 1s ease;
+}
+
+
 /* ====================================================================
    CONTACT PAGE
    ==================================================================== */
@@ -776,9 +832,15 @@ main {
 
 .contact-methods {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
   margin: var(--spacing-lg) 0;
+}
+
+@media (max-width: 768px) {
+  .contact-methods {
+    grid-template-columns: 1fr;
+  }
 }
 
 .contact-card {
@@ -1106,3 +1168,200 @@ main {
     padding-top: 0;
   }
 }
+
+/* ====================================================================
+   ABOUT PAGE - NEW LAYOUT
+   ==================================================================== */
+
+.about-sidebar {
+  background-color: var(--background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.about-contact-info {
+  margin-top: var(--spacing-lg);
+}
+
+.about-contact-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--primary-color);
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) 0;
+  color: var(--text-color);
+}
+
+.contact-list i {
+  color: var(--accent-color);
+  width: 20px;
+  text-align: center;
+}
+
+.contact-list a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.contact-list a:hover {
+  color: var(--accent-color);
+}
+
+@media (min-width: 768px) {
+  .about-section {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--spacing-xl);
+  }
+  
+  .about-sidebar {
+    position: sticky;
+    top: calc(var(--spacing-lg) + 60px);
+    height: fit-content;
+  }
+}
+
+/* ====================================================================
+   TIMELINE STYLES
+   ==================================================================== */
+
+.timeline-section-title {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin: var(--spacing-xl) 0 var(--spacing-lg) 0;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
+  border-left: 2px solid var(--border-color);
+}
+
+.timeline-item:last-child {
+  border-left: 2px solid transparent;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -9px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  border: 3px solid var(--background);
+  box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+.timeline-period {
+  display: inline-block;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+}
+
+.timeline-content h3 {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.timeline-content h4 {
+  color: var(--text-light);
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.course-list {
+  margin: var(--spacing-sm) 0;
+  padding-left: var(--spacing-lg);
+}
+
+.course-list li {
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-color);
+}
+
+.placeholder-text {
+  color: var(--text-light);
+  font-style: italic;
+  padding: var(--spacing-md);
+}
+
+/* ====================================================================
+   ACHIEVEMENTS GRID
+   ==================================================================== */
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.achievement-card {
+  background-color: var(--background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.achievement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.achievement-image-placeholder {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-alt);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-sm);
+  color: var(--accent-color);
+}
+
+.achievement-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.achievement-card h4 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-xs);
+  font-size: 1.1rem;
+}
+
+.achievement-card p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
