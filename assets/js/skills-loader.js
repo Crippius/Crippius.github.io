@@ -99,8 +99,11 @@ function renderCategorySkills(categoryKey, sectionName) {
   const skills = window.SKILLS_CONFIG.categories[categoryKey].skills;
   let html = "";
 
+  // Convert underscores to hyphens for CSS class names
+  const cssClass = categoryKey.replace(/_/g, "-");
+
   skills.forEach((skill) => {
-    html += `<span class="tech-tag category-${categoryKey}">${skill}</span>\n  `;
+    html += `<span class="tech-tag category-${cssClass}">${skill}</span>\n  `;
   });
 
   container.innerHTML = html;
@@ -130,9 +133,9 @@ function renderOtherTools() {
   tools.forEach((tool) => {
     const icon = TOOL_ICONS[tool];
     if (icon) {
-      html += `<span class="tech-tag"><i class="${icon}"></i> ${tool}</span>\n  `;
+      html += `<span class="tech-tag category-other"><i class="${icon}"></i> ${tool}</span>\n  `;
     } else {
-      html += `<span class="tech-tag">${tool}</span>\n  `;
+      html += `<span class="tech-tag category-other">${tool}</span>\n  `;
     }
   });
 
