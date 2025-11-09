@@ -1,32 +1,75 @@
 {
   "justvicthor/Early_Alzheimer_Detection_DL": {
     "title": "Early Alzheimer Detection with Deep Learning",
-    "description": "A deep learning project for early detection of Alzheimer's disease using neural networks and medical imaging data.",
-    "tags": ["Deep Learning", "Healthcare", "PyTorch"],
+    "description": "Deep learning project for early detection of Alzheimer's disease using neural networks and medical imaging data.",
+    "tags": ["PyTorch", "TensorFlow", "OpenCV"],
     "image": null
   },
   "Elizabethvk/eumaster4hpc_challenge_2025": {
     "title": "EUMaster4HPC Challenge 2025",
     "description": "Competitive HPC challenge focusing on parallel computing and performance optimization.",
-    "tags": ["HPC", "Parallel Computing", "Performance"],
+    "tags": ["C++", "MPI", "OpenMP"],
     "image": null
   },
   "Crippius/whatsapp-wrapped": {
     "title": "WhatsApp Wrapped",
-    "description": "Personal analytics tool for WhatsApp chat data - similar to Spotify Wrapped but for your messages!",
-    "tags": ["Python", "Data Analytics", "Visualization"],
+    "description": "Transform your WhatsApp chat history into a beautiful PDF report filled with interesting insights, data visualizations, and engaging analytics.",
+    "tags": ["Python", "Pandas", "Matplotlib"],
     "image": null
   },
-  "Crippius/al_project": {
-    "title": "Active Learning Project",
-    "description": "Implementation of active learning algorithms for efficient machine learning model training.",
-    "tags": ["Machine Learning", "Active Learning", "Python"],
+  "Crippius/Active_Learning_for_Social_Media_Classification": {
+    "title": "Active Learning for Social Media Classification",
+    "description": "Proof of concept for evaluating the quality of information collected through social media for configuring data preparation pipelines using active learning techniques.",
+    "tags": ["scikit-learn", "NLTK", "Python"],
     "image": null
   },
   "Streaming-Data-Analytics/2024-2025_Benchmarking-Detectors-in-SML": {
     "title": "Benchmarking Concept Drift Detectors",
-    "description": "Comprehensive benchmarking of concept drift detection algorithms in streaming machine learning.",
-    "tags": ["Stream Mining", "Concept Drift", "Benchmarking"],
+    "description": "Comprehensive benchmarking of concept drift detection algorithms in streaming machine learning environments.",
+    "tags": ["CapyMOA", "Python", "scikit-learn"],
+    "image": null
+  },
+  "edolea/Team3_EUMASTER4HPC2526": {
+    "title": "HPC Team Project 2025-26",
+    "description": "Collaborative HPC project for EUMaster4HPC program.",
+    "tags": ["C++", "MPI", "SLURM"],
+    "image": null
+  },
+
+  "Crippius/MultiviewVisualization": {
+    "title": "Multiview Visualization",
+    "description": "Interactive data visualization project using multiple coordinated views.",
+    "tags": ["JavaScript", "d3.js", "HTML"],
+    "image": null
+  },
+  "Crippius/space-and-time-adaptivity": {
+    "title": "Space and Time Adaptivity",
+    "description": "Adaptive solver for the heat equation using deal.II, optimizing spatial and temporal accuracy efficiently.",
+    "tags": ["C++", "deal.II", "MPI"],
+    "image": null
+  },
+  "Crippius/pomodoro-report-generator": {
+    "title": "Pomodoro Report Generator",
+    "description": "Automated report generation for Pomodoro technique productivity tracking over the years.",
+    "tags": ["Python", "Pandas", "Matplotlib"],
+    "image": null
+  },
+  "Crippius/wordle-solver": {
+    "title": "Wordle Solver",
+    "description": "Efficient algorithm to solve daily Wordle puzzles using optimal word-guessing strategies.",
+    "tags": ["Python", "NumPy"],
+    "image": null
+  },
+  "Crippius/IS24-AM42": {
+    "title": "Software Engineering Project",
+    "description": "Group software engineering project for academic coursework.",
+    "tags": ["Java"],
+    "image": null
+  },
+  "Crippius/Games-of-Chance": {
+    "title": "Games of Chance",
+    "description": "Emulation and statistical analysis of famous casino games to study gambling probabilities and strategies.",
+    "tags": ["Jupyter", "NumPy", "Matplotlib"],
     "image": null
   }
 }

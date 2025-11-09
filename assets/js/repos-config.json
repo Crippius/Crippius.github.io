@@ -1,0 +1,62 @@
+[
+  { 
+    "owner": "justvicthor", 
+    "repo": "Early_Alzheimer_Detection_DL",
+    "pinned": true
+  },
+  { 
+    "owner": "Elizabethvk", 
+    "repo": "eumaster4hpc_challenge_2025",
+    "pinned": true
+  },
+  { 
+    "owner": "Crippius", 
+    "repo": "whatsapp-wrapped",
+    "pinned": true
+  },
+  { 
+    "owner": "Crippius", 
+    "repo": "Active_Learning_for_Social_Media_Classification",
+    "pinned": true
+  },
+  { 
+    "owner": "Streaming-Data-Analytics", 
+    "repo": "2024-2025_Benchmarking-Detectors-in-SML",
+    "pinned": true
+  },
+  {
+    "owner": "edolea",
+    "repo": "Team3_EUMASTER4HPC2526",
+    "pinned": false
+  },
+  {
+    "owner": "Crippius",
+    "repo": "MultiviewVisualization",
+    "pinned": false
+  },
+  {
+    "owner": "Crippius",
+    "repo": "space-and-time-adaptivity",
+    "pinned": false
+  },
+  {
+    "owner": "Crippius",
+    "repo": "pomodoro-report-generator",
+    "pinned": false
+  },
+  {
+    "owner": "Crippius",
+    "repo": "wordle-solver",
+    "pinned": false
+  },
+  {
+    "owner": "Crippius",
+    "repo": "IS24-AM42",
+    "pinned": false
+  },
+  {
+    "owner": "Crippius",
+    "repo": "Games-of-Chance",
+    "pinned": false
+  }
+]

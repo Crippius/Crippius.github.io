@@ -9,6 +9,7 @@ let FEATURED_REPOS = [];
 let EXCLUDE_REPOS = [];
 let EXTERNAL_REPOS = []; // Format: [{ owner: "username", repo: "repo-name" }]
 let PROJECT_OVERRIDES = {}; // Will be loaded from project-overrides.json
+let SKILLS_CONFIG = {}; // Will be loaded from skills-config.json
 
 // Function to set configuration
 function setGitHubConfig(
@@ -21,6 +22,24 @@ function setGitHubConfig(
   FEATURED_REPOS = featuredRepos;
   EXCLUDE_REPOS = excludeRepos;
   EXTERNAL_REPOS = externalRepos;
+}
+
+/**
+ * Load skills configuration from JSON file
+ */
+async function loadSkillsConfig() {
+  try {
+    const response = await fetch("/assets/js/skills-config.json");
+    if (!response.ok) {
+      console.warn("Skills config file not found, using defaults");
+      return {};
+    }
+    SKILLS_CONFIG = await response.json();
+    return SKILLS_CONFIG;
+  } catch (error) {
+    console.warn("Error loading skills config:", error);
+    return {};
+  }
 }
 
 /**
@@ -45,25 +64,39 @@ async function loadProjectOverrides() {
  * Fetch repositories from GitHub API
  */
 
-// Fetch pinned repositories from a JSON file
-async function fetchPinnedRepos() {
+// Fetch repositories from repos-config.json
+async function fetchReposFromConfig() {
   try {
-    const response = await fetch("/assets/js/pinned-repos.json");
-    if (!response.ok) throw new Error("Could not load pinned repos list");
-    const pinned = await response.json();
-    const promises = pinned.map(({ owner, repo }) =>
+    const response = await fetch("/assets/js/repos-config.json");
+    if (!response.ok) throw new Error("Could not load repos config");
+    const reposConfig = await response.json();
+    const promises = reposConfig.map(({ owner, repo }) =>
       fetchExternalRepo(owner, repo)
     );
     const results = await Promise.all(promises);
-    return results.filter((repo) => repo !== null);
+    const repos = results.filter((repo) => repo !== null);
+
+    // Add the pinned property from config to each repo
+    repos.forEach((repo, index) => {
+      const config = reposConfig.find(
+        (cfg) => cfg.owner === repo.owner.login && cfg.repo === repo.name
+      );
+      if (config) {
+        repo.pinned = config.pinned !== undefined ? config.pinned : false;
+      } else {
+        repo.pinned = false;
+      }
+    });
+
+    return repos;
   } catch (error) {
-    console.error("Error loading pinned repos:", error);
+    console.error("Error loading repos config:", error);
     return [];
   }
 }
 
 /**
- * Fetch a single repository from another user
+ * Fetch a single repository from GitHub
  */
 async function fetchExternalRepo(owner, repoName) {
   try {
@@ -83,42 +116,47 @@ async function fetchExternalRepo(owner, repoName) {
 }
 
 /**
- * Fetch all external repositories
+ * Get color for a skill/tag based on category
  */
-async function fetchExternalRepos() {
-  if (!EXTERNAL_REPOS || EXTERNAL_REPOS.length === 0) {
-    return [];
+function getTagColor(tag) {
+  if (!SKILLS_CONFIG.categories) {
+    return "#95a5a6"; // default gray
   }
 
-  const promises = EXTERNAL_REPOS.map(({ owner, repo }) =>
-    fetchExternalRepo(owner, repo)
-  );
+  // Search for the tag in all categories
+  for (const [categoryKey, categoryData] of Object.entries(
+    SKILLS_CONFIG.categories
+  )) {
+    if (categoryData.skills && categoryData.skills.includes(tag)) {
+      return categoryData.color;
+    }
+  }
 
-  const results = await Promise.all(promises);
-  return results.filter((repo) => repo !== null);
+  return "#95a5a6"; // default gray for unknown skills
 }
 
 /**
- * Fetch user's own repositories from GitHub API
+ * Get categories that a project belongs to based on its tags
  */
-async function fetchGitHubRepos() {
-  try {
-    const response = await fetch(
-      `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`
-    );
+function getProjectCategories(tags) {
+  const categories = new Set();
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch repositories");
-    }
-
-    const repos = await response.json();
-
-    // Filter out excluded repos
-    return repos.filter((repo) => !EXCLUDE_REPOS.includes(repo.name));
-  } catch (error) {
-    console.error("Error fetching GitHub repos:", error);
-    return [];
+  if (!tags || !SKILLS_CONFIG.categories) {
+    return categories;
   }
+
+  // Check each tag against all categories
+  tags.forEach((tag) => {
+    for (const [categoryKey, categoryData] of Object.entries(
+      SKILLS_CONFIG.categories
+    )) {
+      if (categoryData.skills && categoryData.skills.includes(tag)) {
+        categories.add(categoryKey);
+      }
+    }
+  });
+
+  return categories;
 }
 
 /**
@@ -149,27 +187,26 @@ function createProjectCard(repo) {
       ? `<span class="meta-item"><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>`
       : "";
 
-  // Language tag
-  const language = repo.language
-    ? `<span class="tag">${repo.language}</span>`
-    : "";
-
-  // Topic tags - use custom tags if provided, otherwise use repo topics
+  // Topic tags - use custom tags if provided with color-coding
   let topicTags = "";
   if (overrides.tags && overrides.tags.length > 0) {
     topicTags = overrides.tags
       .slice(0, 3)
-      .map((tag) => `<span class="tag">${tag}</span>`)
-      .join("");
-  } else if (repo.topics && repo.topics.length > 0) {
-    topicTags = repo.topics
-      .slice(0, 3)
-      .map((topic) => `<span class="tag">${topic}</span>`)
+      .map((tag) => {
+        const color = getTagColor(tag);
+        return `<span class="tag" style="background-color: ${color}; color: white; border-color: ${color};">${tag}</span>`;
+      })
       .join("");
   }
 
+  // Determine which categories this project belongs to
+  const projectCategories = getProjectCategories(overrides.tags || []);
+  const categoriesAttr = Array.from(projectCategories).join(",");
+
   return `
-    <div class="project-card" data-language="${repo.language || "other"}"
+    <div class="project-card" 
+      data-language="${repo.language || "other"}" 
+      data-categories="${categoriesAttr}"
       onclick="window.open('${
         repo.html_url
       }', '_blank')" style="cursor:pointer;">
@@ -185,7 +222,6 @@ function createProjectCard(repo) {
         ${forks}
       </div>
       <div class="project-tags">
-        ${language}
         ${topicTags}
       </div>
       <div class="project-links">
@@ -238,20 +274,19 @@ async function loadGitHubProjects(containerId, featuredOnly = true) {
     '<div class="loading">Loading projects from GitHub...</div>';
 
   try {
-    // Load project overrides first
-    await loadProjectOverrides();
+    // Load configurations first
+    await Promise.all([loadSkillsConfig(), loadProjectOverrides()]);
+
+    // Fetch all repos from config
+    const allRepos = await fetchReposFromConfig();
 
     let repos = [];
     if (containerId === "projects-grid") {
-      // Home section: show only those in pinned-repos.json
-      repos = await fetchPinnedRepos();
+      // Home section: show only pinned repos
+      repos = allRepos.filter((repo) => repo.pinned === true);
     } else {
-      // Projects section: show all user repos and external repos
-      const [ownRepos, externalRepos] = await Promise.all([
-        fetchGitHubRepos(),
-        fetchExternalRepos(),
-      ]);
-      repos = [...ownRepos, ...externalRepos];
+      // Projects section: show all repos from config (pinned or not)
+      repos = allRepos;
     }
 
     // Sort by stars and date
@@ -275,6 +310,11 @@ async function loadGitHubProjects(containerId, featuredOnly = true) {
     cards.forEach((card, index) => {
       card.style.animationDelay = `${index * 0.1}s`;
     });
+
+    // Initialize filters after projects are loaded (for projects page only)
+    if (containerId === "all-projects") {
+      initProjectFilters();
+    }
   } catch (error) {
     console.error("Error loading projects:", error);
     container.innerHTML = `
@@ -292,9 +332,12 @@ async function loadGitHubProjects(containerId, featuredOnly = true) {
  */
 function initProjectFilters() {
   const filterButtons = document.querySelectorAll(".filter-btn");
-  const projectCards = document.querySelectorAll(".project-card");
+  const container = document.getElementById("all-projects");
 
-  if (!filterButtons.length) return;
+  if (!filterButtons.length || !container) return;
+
+  // Update button labels with counts
+  updateFilterCounts(container);
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -303,20 +346,56 @@ function initProjectFilters() {
       button.classList.add("active");
 
       const filter = button.dataset.filter;
+      const projectCards = container.querySelectorAll(".project-card");
 
-      // Filter projects
+      // Filter projects based on category
       projectCards.forEach((card) => {
         if (filter === "all") {
           card.style.display = "block";
-        } else if (filter === "featured") {
-          // You can add a data-featured attribute to featured projects
-          card.style.display = card.dataset.featured ? "block" : "none";
         } else {
-          const language = card.dataset.language?.toLowerCase() || "";
-          card.style.display = language.includes(filter) ? "block" : "none";
+          // Check if card has the selected category
+          const categories = card.dataset.categories || "";
+          const categoryList = categories
+            .split(",")
+            .filter((c) => c.length > 0);
+
+          if (categoryList.includes(filter)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
         }
       });
     });
+  });
+}
+
+/**
+ * Update filter button labels with project counts
+ */
+function updateFilterCounts(container) {
+  const projectCards = container.querySelectorAll(".project-card");
+  const filterButtons = document.querySelectorAll(".filter-btn");
+
+  filterButtons.forEach((button) => {
+    const filter = button.dataset.filter;
+    let count = 0;
+
+    if (filter === "all") {
+      count = projectCards.length;
+    } else {
+      projectCards.forEach((card) => {
+        const categories = card.dataset.categories || "";
+        const categoryList = categories.split(",").filter((c) => c.length > 0);
+        if (categoryList.includes(filter)) {
+          count++;
+        }
+      });
+    }
+
+    // Update button text to include count
+    const baseText = button.textContent.split(" (")[0]; // Remove existing count if any
+    button.textContent = `${baseText} (${count})`;
   });
 }
 
@@ -332,9 +411,6 @@ if (document.readyState === "loading") {
     if (document.getElementById("all-projects")) {
       loadGitHubProjects("all-projects", false);
     }
-
-    // Initialize filters
-    initProjectFilters();
   });
 } else {
   // DOM already loaded
@@ -345,6 +421,4 @@ if (document.readyState === "loading") {
   if (document.getElementById("all-projects")) {
     loadGitHubProjects("all-projects", false);
   }
-
-  initProjectFilters();
 }

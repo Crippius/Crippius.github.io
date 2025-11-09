@@ -18,7 +18,7 @@ title: About Me
         </li>
         <li>
           <i class="fas fa-map-marker-alt"></i>
-          <span>Milan, Italy / Luxembourg</span>
+          <span>Milan, Italy</span>
         </li>
         <li>
           <i class="fab fa-linkedin"></i>

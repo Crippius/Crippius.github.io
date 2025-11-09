@@ -1,0 +1,25 @@
+{
+  "categories": {
+    "hpc": {
+      "name": "HPC",
+      "color": "#e74c3c",
+      "skills": ["MPI", "OpenMP", "SLURM", "deal.II", "CUDA"]
+    },
+    "ai": {
+      "name": "AI",
+      "color": "#9b59b6",
+      "skills": ["PyTorch", "TensorFlow", "Keras", "OpenCV", "Hugging Face", "scikit-learn", "NLTK"]
+    },
+    "data_science": {
+      "name": "Data Science",
+      "color": "#3498db",
+      "skills": ["Pandas", "NumPy", "Matplotlib", "Seaborn", "Jupyter", "CapyMOA", "d3.js"]
+    },
+    "other": {
+      "name": "Other",
+      "color": "#95a5a6",
+      "skills": ["C", "C++", "Python", "JavaScript", "Java", "MATLAB", "SQL", "Bash", "HTML", "CSS", "Git", "Linux", "Docker", "MySQL", "SQLite", "VS Code", "LaTeX", "React", "Ansible", "Vagrant"]
+    }
+  },
+  "programming_languages": ["Python", "C", "C++", "JavaScript", "Java", "MATLAB", "SQL", "Bash"]
+}
