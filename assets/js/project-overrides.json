@@ -70,11 +70,11 @@
     "github_url": "https://github.com/Crippius/wordle-solver"
   },
   "Crippius/IS24-AM42": {
-    "title": "Software Engineering Project",
+    "title": "Codex Naturalis",
     "description": "Group software engineering project for academic coursework.",
     "tags": ["Java", "Maven", "JUnit"],
     "image": null,
-    "github_url": "https://github.com/Crippius/IS24-AM42"
+    "github_url": "https://github.com/Crippius/CodexNaturalis"
   },
   "Crippius/Games-of-Chance": {
     "title": "Games of Chance",

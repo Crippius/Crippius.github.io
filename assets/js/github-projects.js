@@ -215,7 +215,9 @@ function getTagColor(tag) {
     window.SKILLS_CONFIG.categories
   )) {
     if (categoryData.skills && categoryData.skills.includes(tag)) {
-      return `category-${categoryKey}`;
+      // Convert underscores to hyphens for CSS class names
+      const cssClass = categoryKey.replace(/_/g, "-");
+      return `category-${cssClass}`;
     }
   }
 
