@@ -2,92 +2,151 @@
   "albertofinardi/Sage_GNN": {
     "title": "GraphSAGE for Large-Scale Node Classification",
     "description": "Applied GraphSAGE to ogbn-products (2.4M nodes, 47 classes) on the MeluXina supercomputer, achieving 81.21% test accuracy. Benchmarked batch size, neighbor sampling, and multi-GPU scaling.",
-    "tags": ["Python", "PyTorch", "PyG", "CUDA", "DDP", "SLURM"],
+    "tags": [
+      "Python",
+      "PyTorch",
+      "PyG",
+      "CUDA",
+      "DDP",
+      "SLURM"
+    ],
     "image": null,
     "github_url": "https://github.com/albertofinardi/Sage_GNN"
   },
   "justvicthor/Early_Alzheimer_Detection_DL": {
     "title": "Early Alzheimer Detection with Deep Learning",
     "description": "Deep learning project for early detection of Alzheimer's disease using neural networks and medical imaging data.",
-    "tags": ["Python", "PyTorch", "C++", "OpenCV", "SLURM"],
+    "tags": [
+      "Python",
+      "PyTorch",
+      "C++",
+      "OpenCV",
+      "SLURM"
+    ],
     "image": null,
     "github_url": "https://github.com/justvicthor/Early_Alzheimer_Detection_DL"
   },
   "Elizabethvk/eumaster4hpc_challenge_2025": {
     "title": "High-Performance Graph Coloring with Branch-and-Bound Framework",
     "description": "Developed a high-performance implementation of a branch-and-bound framework for solving the graph coloring problem.",
-    "tags": ["Python", "SLURM", "MPI"],
+    "tags": [
+      "Python",
+      "SLURM",
+      "MPI"
+    ],
     "image": null,
     "github_url": "https://github.com/Elizabethvk/eumaster4hpc_challenge_2025"
   },
   "Crippius/whatsapp-wrapped": {
     "title": "WhatsApp Wrapped",
     "description": "Transform your WhatsApp chat history into a beautiful PDF report filled with interesting insights, data visualizations, and engaging analytics.",
-    "tags": ["Python", "Matplotlib", "Pandas", "React"],
-    "image": null,
+    "tags": [
+      "Python",
+      "Matplotlib",
+      "Pandas",
+      "React"
+    ],
+    "image": "https://repository-images.githubusercontent.com/507297606/468acbc2-6fb4-4c69-919e-2998515b5620",
     "github_url": "https://github.com/Crippius/whatsapp-wrapped"
   },
   "Crippius/Active_Learning_for_Social_Media_Classification": {
     "title": "Active Learning for Social Media Classification",
     "description": "Proof of concept for evaluating the quality of information collected through social media for configuring data preparation pipelines using active learning techniques.",
-    "tags": ["Python", "TensorFlow", "NLTK", "scikit-learn"],
-    "image": null,
+    "tags": [
+      "Python",
+      "TensorFlow",
+      "NLTK",
+      "scikit-learn"
+    ],
+    "image": "https://repository-images.githubusercontent.com/778390262/36fcb43f-4f0a-44d1-b5d0-de6af5d84b94",
     "github_url": "https://github.com/Crippius/Active_Learning_for_Social_Media_Classification"
   },
   "Streaming-Data-Analytics/2024-2025_Benchmarking-Detectors-in-SML": {
     "title": "Benchmarking Concept Drift Detectors",
     "description": "Comprehensive benchmarking of concept drift detection algorithms in streaming machine learning environments.",
-    "tags": ["Python", "CapyMOA", "TensorFlow"],
+    "tags": [
+      "Python",
+      "CapyMOA",
+      "TensorFlow"
+    ],
     "image": null,
     "github_url": "https://github.com/Streaming-Data-Analytics/2024-2025_Benchmarking-Detectors-in-SML"
   },
   "edolea/Team3_EUMASTER4HPC2526": {
     "title": "Benchmarking AI Factories on MeluXina",
     "description": "Created a benchmarking framework to evaluate the performance of various AI factories on the MeluXina supercomputer, focusing on scalability and efficiency.",
-    "tags": ["Python", "SLURM", "Docker"],
+    "tags": [
+      "Python",
+      "SLURM",
+      "Docker"
+    ],
     "image": null,
     "github_url": "https://github.com/edolea/Team3_EUMASTER4HPC2526"
   },
   "Crippius/MultiviewVisualization": {
     "title": "Multiview Visualization",
     "description": "Interactive data visualization project using multiple coordinated views.",
-    "tags": ["JavaScript", "React", "d3.js"],
-    "image": null,
+    "tags": [
+      "JavaScript",
+      "React",
+      "d3.js"
+    ],
+    "image": "https://repository-images.githubusercontent.com/1087339226/bfc0f0be-ed40-4658-a768-cad722aa8403",
     "github_url": "https://github.com/Crippius/MultiviewVisualization"
   },
   "Crippius/space-and-time-adaptivity": {
     "title": "Space and Time Adaptivity",
     "description": "Adaptive solver for the heat equation using deal.II, optimizing spatial and temporal accuracy efficiently.",
-    "tags": ["C++", "deal.II", "MPI"],
+    "tags": [
+      "C++",
+      "deal.II",
+      "MPI"
+    ],
     "image": null,
     "github_url": "https://github.com/Crippius/space-and-time-adaptivity"
   },
   "Crippius/pomodoro-report-generator": {
     "title": "Pomodoro Report Generator",
     "description": "Automated report generation for Pomodoro technique productivity tracking over the years.",
-    "tags": ["Python", "Pandas", "Matplotlib"],
-    "image": null,
+    "tags": [
+      "Python",
+      "Pandas",
+      "Matplotlib"
+    ],
+    "image": "https://repository-images.githubusercontent.com/531097103/74db96d3-b3b7-4ddf-8225-f2029aa754e1",
     "github_url": "https://github.com/Crippius/pomodoro-report-generator"
   },
   "Crippius/wordle-solver": {
     "title": "Wordle Solver",
     "description": "Efficient algorithm to solve daily Wordle puzzles using optimal word-guessing strategies.",
-    "tags": ["Python", "NumPy", "tkinter"],
-    "image": null,
+    "tags": [
+      "Python",
+      "NumPy",
+      "tkinter"
+    ],
+    "image": "https://repository-images.githubusercontent.com/456229128/d76f8741-c2df-405d-b14e-bcc54847ed28",
     "github_url": "https://github.com/Crippius/wordle-solver"
   },
   "Crippius/IS24-AM42": {
     "title": "Codex Naturalis",
     "description": "Group software engineering project for academic coursework.",
-    "tags": ["Java", "Maven", "JUnit"],
-    "image": null,
+    "tags": [
+      "Java",
+      "Maven",
+      "JUnit"
+    ],
+    "image": "https://repository-images.githubusercontent.com/763017977/bf9725b4-f686-4b2f-b385-33bd62f4157a",
     "github_url": "https://github.com/Crippius/CodexNaturalis"
   },
   "Crippius/Games-of-Chance": {
     "title": "Games of Chance",
     "description": "Emulation and statistical analysis of famous casino games to study gambling probabilities and strategies.",
-    "tags": ["Python", "NumPy", "Matplotlib"],
-    "image": null,
+    "tags": [
+      "Python",
+      "NumPy",
+      "Matplotlib"
+    ],
+    "image": "https://repository-images.githubusercontent.com/404638092/91a0d4f7-8688-49b5-941f-3e97271e1969",
     "github_url": "https://github.com/Crippius/Games-of-Chance"
   }
 }
