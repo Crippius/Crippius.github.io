@@ -34,7 +34,6 @@ title: About Me
   
   <div class="about-content">
     <h2>Hello! I'm {{ site.author.name }}</h2>
-    <p class="lead">{{ site.author.tagline }}</p>
 
     <p>
       I'm a High Performance Computing Engineering student @ Politecnico di Milano & University of Luxembourg.
@@ -47,9 +46,14 @@ title: About Me
       <li>Working with big data to solve complex real-world problems</li>
     </ul>
 
+    <h3>Master's Thesis</h3>
     <p>
-      Currently, I'm working on my master's thesis focusing on [REDACTED]. (Can't disclose more details yet!)
+      Currently completing my thesis at <strong>MEGWARE</strong> on <em>Automated Performance Analysis and Bottleneck Detection for HPC Applications</em>, building a heuristic and ML pipeline that monitors ~100 HPC metrics in real time and delivers interpretable optimization recommendations without requiring source-code access.
     </p>
+
+    <a href="{{ site.author.cv_url }}" class="btn btn-primary" target="_blank">
+      <i class="fas fa-file-pdf"></i> Download CV
+    </a>
 
   </div>
 </div>
