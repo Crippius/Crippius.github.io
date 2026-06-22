@@ -1,4 +1,11 @@
 {
+  "albertofinardi/Sage_GNN": {
+    "title": "GraphSAGE for Large-Scale Node Classification",
+    "description": "Applied GraphSAGE to ogbn-products (2.4M nodes, 47 classes) on the MeluXina supercomputer, achieving 81.21% test accuracy. Benchmarked batch size, neighbor sampling, and multi-GPU scaling.",
+    "tags": ["Python", "PyTorch", "PyG", "CUDA", "DDP", "SLURM"],
+    "image": null,
+    "github_url": "https://github.com/albertofinardi/Sage_GNN"
+  },
   "justvicthor/Early_Alzheimer_Detection_DL": {
     "title": "Early Alzheimer Detection with Deep Learning",
     "description": "Deep learning project for early detection of Alzheimer's disease using neural networks and medical imaging data.",

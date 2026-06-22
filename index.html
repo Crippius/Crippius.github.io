@@ -8,10 +8,19 @@ title: Home
     <div class="hero-content">
       <h1 class="hero-title">Hi, I'm <span class="accent">{{ site.author.name }}</span></h1>
       <p class="hero-tagline">{{ site.author.tagline }}</p>
-      <p class="hero-bio">{{ site.author.bio }}</p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View My Work</a>
-        <a href="{{ site.author.cv_url }}" class="btn btn-outline" target="_blank">Download CV</a>
+      <div class="hero-socials">
+        <a href="https://github.com/{{ site.author.github }}" class="social-link" target="_blank" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/{{ site.author.linkedin }}" class="social-link" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="mailto:{{ site.author.email }}" class="social-link" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="{{ site.author.cv_url }}" class="social-link" target="_blank" aria-label="Download CV">
+          <i class="fas fa-file-pdf"></i>
+        </a>
       </div>
     </div>
   </div>
@@ -20,7 +29,6 @@ title: Home
 <section id="projects" class="section">
   <div class="container">
     <h2 class="section-title">Featured Projects</h2>
-    <p class="section-subtitle">Automatically pulled from my GitHub repositories</p>
     
     <div id="projects-grid" class="projects-grid">
       <div class="loading">Loading projects...</div>

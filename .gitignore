@@ -69,6 +69,7 @@ _site/
 
 *.md
 
+.claude/
 # IDE
 .vscode/
 .idea/

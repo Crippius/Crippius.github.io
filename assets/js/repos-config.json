@@ -14,10 +14,10 @@
     "repo": "whatsapp-wrapped",
     "pinned": true
   },
-  { 
-    "owner": "Crippius", 
+  {
+    "owner": "Crippius",
     "repo": "Active_Learning_for_Social_Media_Classification",
-    "pinned": true
+    "pinned": false
   },
   { 
     "owner": "Streaming-Data-Analytics", 
@@ -27,6 +27,11 @@
   {
     "owner": "edolea",
     "repo": "Team3_EUMASTER4HPC2526",
+    "pinned": true
+  },
+  {
+    "owner": "albertofinardi",
+    "repo": "Sage_GNN",
     "pinned": true
   },
   {
