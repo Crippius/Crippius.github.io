@@ -6,12 +6,28 @@ via GitHub GraphQL API and writes the URLs into project-overrides.json.
 
 import json
 import os
+import re
 import sys
 import urllib.request
 
 REPOS_CONFIG = "assets/js/repos-config.json"
 OVERRIDES_FILE = "assets/js/project-overrides.json"
 GRAPHQL_URL = "https://api.github.com/graphql"
+
+
+def normalize_image_url(url):
+    """GitHub's GraphQL API returns a temporary signed S3 URL (bucket-name
+    segment + X-Amz-* query string, ~5min expiry) rather than the stable
+    public CDN path. The repo id and image uuid are always the last two
+    path segments in either form, so rebuild the durable URL from those."""
+    match = re.match(
+        r"https://repository-images\.githubusercontent\.com/.*?/(\d+)/([0-9a-f-]+)",
+        url,
+    )
+    if not match:
+        return url
+    repo_id, image_uuid = match.groups()
+    return f"https://repository-images.githubusercontent.com/{repo_id}/{image_uuid}"
 
 
 def fetch_og_images(token, repos):
@@ -88,12 +104,11 @@ def main():
             continue
 
         if uses_custom:
-            overrides[key]["image"] = image_url
+            overrides[key]["image"] = normalize_image_url(image_url)
             print(f"  {key}: set custom image")
             updated += 1
         else:
-            overrides[key]["image"] = None
-            print(f"  {key}: no custom image, kept null")
+            print(f"  {key}: no custom image on GitHub, leaving existing override untouched")
 
     with open(OVERRIDES_FILE, "w") as f:
         json.dump(overrides, f, indent=2)

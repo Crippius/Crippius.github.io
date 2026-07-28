@@ -10,7 +10,7 @@
       "DDP",
       "SLURM"
     ],
-    "image": null,
+    "image": "/assets/images/projects/sage-gnn.png",
     "github_url": "https://github.com/albertofinardi/Sage_GNN"
   },
   "justvicthor/Early_Alzheimer_Detection_DL": {
@@ -23,7 +23,7 @@
       "OpenCV",
       "SLURM"
     ],
-    "image": null,
+    "image": "/assets/images/projects/early-alzheimer-detection-dl.png",
     "github_url": "https://github.com/justvicthor/Early_Alzheimer_Detection_DL"
   },
   "Elizabethvk/eumaster4hpc_challenge_2025": {
@@ -34,7 +34,7 @@
       "SLURM",
       "MPI"
     ],
-    "image": null,
+    "image": "/assets/images/projects/eumaster4hpc-challenge-2025.png",
     "github_url": "https://github.com/Elizabethvk/eumaster4hpc_challenge_2025"
   },
   "Crippius/whatsapp-wrapped": {
@@ -46,7 +46,7 @@
       "Pandas",
       "React"
     ],
-    "image": "https://repository-images.githubusercontent.com/507297606/468acbc2-6fb4-4c69-919e-2998515b5620",
+    "image": "/assets/images/projects/whatsapp-wrapped.png",
     "github_url": "https://github.com/Crippius/whatsapp-wrapped"
   },
   "Crippius/Active_Learning_for_Social_Media_Classification": {
@@ -58,7 +58,7 @@
       "NLTK",
       "scikit-learn"
     ],
-    "image": "https://repository-images.githubusercontent.com/778390262/36fcb43f-4f0a-44d1-b5d0-de6af5d84b94",
+    "image": "/assets/images/projects/active-learning-social-media-classification.png",
     "github_url": "https://github.com/Crippius/Active_Learning_for_Social_Media_Classification"
   },
   "Streaming-Data-Analytics/2024-2025_Benchmarking-Detectors-in-SML": {
@@ -69,7 +69,7 @@
       "CapyMOA",
       "TensorFlow"
     ],
-    "image": null,
+    "image": "/assets/images/projects/benchmarking-detectors-in-sml.png",
     "github_url": "https://github.com/Streaming-Data-Analytics/2024-2025_Benchmarking-Detectors-in-SML"
   },
   "edolea/Team3_EUMASTER4HPC2526": {
@@ -80,7 +80,7 @@
       "SLURM",
       "Docker"
     ],
-    "image": null,
+    "image": "/assets/images/projects/team3-eumaster4hpc2526.png",
     "github_url": "https://github.com/edolea/Team3_EUMASTER4HPC2526"
   },
   "Crippius/MultiviewVisualization": {
@@ -91,7 +91,7 @@
       "React",
       "d3.js"
     ],
-    "image": "https://repository-images.githubusercontent.com/1087339226/bfc0f0be-ed40-4658-a768-cad722aa8403",
+    "image": "/assets/images/projects/multiview-visualization.png",
     "github_url": "https://github.com/Crippius/MultiviewVisualization"
   },
   "Crippius/space-and-time-adaptivity": {
@@ -102,7 +102,7 @@
       "deal.II",
       "MPI"
     ],
-    "image": null,
+    "image": "/assets/images/projects/space-and-time-adaptivity.png",
     "github_url": "https://github.com/Crippius/space-and-time-adaptivity"
   },
   "Crippius/pomodoro-report-generator": {
@@ -113,7 +113,7 @@
       "Pandas",
       "Matplotlib"
     ],
-    "image": "https://repository-images.githubusercontent.com/531097103/74db96d3-b3b7-4ddf-8225-f2029aa754e1",
+    "image": "/assets/images/projects/pomodoro-report-generator.png",
     "github_url": "https://github.com/Crippius/pomodoro-report-generator"
   },
   "Crippius/wordle-solver": {
@@ -124,10 +124,10 @@
       "NumPy",
       "tkinter"
     ],
-    "image": "https://repository-images.githubusercontent.com/456229128/d76f8741-c2df-405d-b14e-bcc54847ed28",
+    "image": "/assets/images/projects/wordle-solver.png",
     "github_url": "https://github.com/Crippius/wordle-solver"
   },
-  "Crippius/IS24-AM42": {
+  "Crippius/CodexNaturalis": {
     "title": "Codex Naturalis",
     "description": "Group software engineering project for academic coursework.",
     "tags": [
@@ -135,7 +135,7 @@
       "Maven",
       "JUnit"
     ],
-    "image": "https://repository-images.githubusercontent.com/763017977/bf9725b4-f686-4b2f-b385-33bd62f4157a",
+    "image": "/assets/images/projects/codex-naturalis.png",
     "github_url": "https://github.com/Crippius/CodexNaturalis"
   },
   "Crippius/Games-of-Chance": {
@@ -146,7 +146,7 @@
       "NumPy",
       "Matplotlib"
     ],
-    "image": "https://repository-images.githubusercontent.com/404638092/91a0d4f7-8688-49b5-941f-3e97271e1969",
+    "image": "/assets/images/projects/games-of-chance.png",
     "github_url": "https://github.com/Crippius/Games-of-Chance"
   }
 }
