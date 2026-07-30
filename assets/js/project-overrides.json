@@ -46,7 +46,7 @@
       "Pandas",
       "React"
     ],
-    "image": "/assets/images/projects/whatsapp-wrapped.png",
+    "image": "https://repository-images.githubusercontent.com/507297606/468acbc2-6fb4-4c69-919e-2998515b5620",
     "github_url": "https://github.com/Crippius/whatsapp-wrapped"
   },
   "Crippius/Active_Learning_for_Social_Media_Classification": {
@@ -58,7 +58,7 @@
       "NLTK",
       "scikit-learn"
     ],
-    "image": "/assets/images/projects/active-learning-social-media-classification.png",
+    "image": "https://repository-images.githubusercontent.com/778390262/36fcb43f-4f0a-44d1-b5d0-de6af5d84b94",
     "github_url": "https://github.com/Crippius/Active_Learning_for_Social_Media_Classification"
   },
   "Streaming-Data-Analytics/2024-2025_Benchmarking-Detectors-in-SML": {
@@ -91,7 +91,7 @@
       "React",
       "d3.js"
     ],
-    "image": "/assets/images/projects/multiview-visualization.png",
+    "image": "https://repository-images.githubusercontent.com/1087339226/bfc0f0be-ed40-4658-a768-cad722aa8403",
     "github_url": "https://github.com/Crippius/MultiviewVisualization"
   },
   "Crippius/space-and-time-adaptivity": {
@@ -102,7 +102,7 @@
       "deal.II",
       "MPI"
     ],
-    "image": "/assets/images/projects/space-and-time-adaptivity.png",
+    "image": "https://repository-images.githubusercontent.com/943948097/07ff7053-41f8-44db-b101-36981cd27403",
     "github_url": "https://github.com/Crippius/space-and-time-adaptivity"
   },
   "Crippius/pomodoro-report-generator": {
@@ -113,7 +113,7 @@
       "Pandas",
       "Matplotlib"
     ],
-    "image": "/assets/images/projects/pomodoro-report-generator.png",
+    "image": "https://repository-images.githubusercontent.com/531097103/74db96d3-b3b7-4ddf-8225-f2029aa754e1",
     "github_url": "https://github.com/Crippius/pomodoro-report-generator"
   },
   "Crippius/wordle-solver": {
@@ -124,7 +124,7 @@
       "NumPy",
       "tkinter"
     ],
-    "image": "/assets/images/projects/wordle-solver.png",
+    "image": "https://repository-images.githubusercontent.com/456229128/d76f8741-c2df-405d-b14e-bcc54847ed28",
     "github_url": "https://github.com/Crippius/wordle-solver"
   },
   "Crippius/CodexNaturalis": {
@@ -135,7 +135,7 @@
       "Maven",
       "JUnit"
     ],
-    "image": "/assets/images/projects/codex-naturalis.png",
+    "image": "https://repository-images.githubusercontent.com/763017977/bf9725b4-f686-4b2f-b385-33bd62f4157a",
     "github_url": "https://github.com/Crippius/CodexNaturalis"
   },
   "Crippius/Games-of-Chance": {
@@ -146,7 +146,31 @@
       "NumPy",
       "Matplotlib"
     ],
-    "image": "/assets/images/projects/games-of-chance.png",
+    "image": "https://repository-images.githubusercontent.com/404638092/91a0d4f7-8688-49b5-941f-3e97271e1969",
     "github_url": "https://github.com/Crippius/Games-of-Chance"
+  },
+  "Crippius/hpc-bottleneck-detector": {
+    "title": "HPC Bottleneck Detector",
+    "description": "Automated performance analysis for HPC applications: detects bottlenecks from system-wide time-series metrics with no source instrumentation, using rule-based decision trees or a weakly-supervised ML strategy, and reports per-window severity, confidence, and recommendations.",
+    "tags": [
+      "Python",
+      "Jupyter",
+      "tsfresh",
+      "scikit-learn",
+      "DVC"
+    ],
+    "image": "/assets/images/projects/hpc-bottleneck-detector.png",
+    "github_url": "https://github.com/Crippius/hpc-bottleneck-detector"
+  },
+  "Crippius/bottleneck-creator": {
+    "title": "Bottleneck Creator",
+    "description": "HPC performance-anomaly suite that generates labeled datasets by injecting targeted resource and workload bottlenecks, orchestrating the HPAS stress binaries with the FINJ fault-injection scheduler across SLURM clusters.",
+    "tags": [
+      "Python",
+      "C",
+      "SLURM"
+    ],
+    "image": "/assets/images/projects/bottleneck-creator.png",
+    "github_url": "https://github.com/Crippius/bottleneck-creator"
   }
 }

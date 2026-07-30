@@ -22,7 +22,7 @@
   { 
     "owner": "Streaming-Data-Analytics", 
     "repo": "2024-2025_Benchmarking-Detectors-in-SML",
-    "pinned": true
+    "pinned": false
   },
   {
     "owner": "edolea",
@@ -62,6 +62,16 @@
   {
     "owner": "Crippius",
     "repo": "Games-of-Chance",
+    "pinned": false
+  },
+  {
+    "owner": "Crippius",
+    "repo": "hpc-bottleneck-detector",
+    "pinned": true
+  },
+  {
+    "owner": "Crippius",
+    "repo": "bottleneck-creator",
     "pinned": false
   }
 ]
